@@ -9,8 +9,9 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-griptape = "^0.34.0"
+python = "^3.11"
+griptape = "^0.34.3"
+python-dotenv = "^1.0.1"
 
 [tool.poetry.group.test]
 optional = true

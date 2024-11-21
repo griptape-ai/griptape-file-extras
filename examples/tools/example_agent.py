@@ -1,7 +1,16 @@
+import os
+
+from dotenv import load_dotenv
+
+from griptape.media_viewer.tools.media_viewer_tool import MediaViewerTool
 from griptape.structures import Agent
-from griptape.plugin_name.tools.reverse_string import ReverseStringTool
 
+load_dotenv()
 
-agent = Agent(tools=[ReverseStringTool()])
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(script_dir)
+images_dir = os.path.join(parent_dir, "media")
 
-agent.run("Use the ReverseStringTool to reverse 'Griptape'")
+agent = Agent(tools=[MediaViewerTool()])
+
+agent.run(f"Show me the image at {images_dir}/capybara_cloud.jpeg")

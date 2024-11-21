@@ -1,143 +1,83 @@
-# Griptape Extension Template
+# Griptape Media Viewer Tool
 
-A Github template repository for creating Griptape extensions.
+A Griptape tool for viewing media files. 
 
-## Getting Started
+For example, you can tell an agent to "show you the image at /path/to/image" and it will display it using your default image viewer.
 
-Via github web page:
+```python
+import os
 
-Click on `Use this template`
+from dotenv import load_dotenv
 
-![](https://docs.github.com/assets/cb-36544/images/help/repository/use-this-template-button.png)
+from griptape.media_viewer.tools.media_viewer_tool import MediaViewerTool
+from griptape.structures import Agent
 
+load_dotenv()
 
-Via `gh`:
+# Get the path of the image which is in the media directory.
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(script_dir)
+images_dir = os.path.join(parent_dir, "media")
+
+agent = Agent(tools=[MediaViewerTool()])
+
+agent.run(f"Show me the image at {images_dir}/capybara_cloud.jpeg")
 
 ```
-$ gh repo create griptape-extension-name -p griptape/griptape-extension-template
-```
 
-## What is a Griptape Extension?
-
-Griptape Extensions can add new functionality to the [Griptape framework](https://github.com/griptape-ai/griptape), such as new Tools, Drivers, Tasks, or Structures.
-With extensions, you can integrate custom APIs, tools, and services into the Griptape ecosystem.
-
-This repository provides a recommended structure for organizing your extension code, as well as helpful tools for testing and development.
-
-## Extension Structure
-
-The template repository is structured as follows:
+This will output:
 
 ```bash
-tree -I __init__.py -I __pycache__
-
-├── griptape
-│   └── extension_name # Name whatever you want
-│       └── tools
-│           └── reverse_string
-│               └── tool.py
-            ...more directories for other interfaces (drivers, tasks, structures, etc)...
-└── tests
-    └── unit
-        └── tools
-            └── test_reverse_string_tool.py
-├── examples
-    └── tools
-        └── example_agent.py # Example usage of the extension 
-├── LICENSE # Choose the appropriate license
-├── Makefile # Contains useful commands for development
-├── pyproject.toml # Contains the project's metadata
-├── README.md #  Describes the extension and how to use it
-```
-
-## Development
-
-### Poetry
-
-This project uses [Poetry](https://python-poetry.org/) for dependency management.
-It is recommended to configure Poetry to use [in-project](https://python-poetry.org/docs/configuration/#virtualenvsin-project) virtual environments:
-
-```bash
-poetry config virtualenvs.in-project true
-```
-
-This will create a `.venv` directory in the project root, where the virtual environment will be stored.
-This ensures that the virtual environment is always in the same location, regardless of where the project is cloned.
-
-### Useful Commands
-
-#### Installing Dependencies
-
-```bash
-make install
-```
-
-#### Running Tests
-
-```bash
-make test
-```
-
-#### Running Checks (linting, formatting, etc)
-
-```bash
-make check
-```
-
-#### Running Formatter
-
-```bash
-make format
-```
-
-#### Running Example
-
-This template includes an [example](https://github.com/griptape-ai/tool-template/blob/main/examples/tools/example_agent.py) demonstrating how to use the extension. It shows how to import the `ReverseStringTool`, provide it to an Agent, and run it.
-
-1. Set the required environment variables. The example needs the `OPENAI_API_KEY` environment variable to be set.
-2. Run the example:
-
-```bash
-poetry run python examples/tools/example_agent.py
-```
-
-If successful, you should see:
-```
-[11/18/24 14:55:14] INFO     ToolkitTask 6bb7fa5581d147b2a39e801631c98005
-                             Input: Use the ReverseStringTool to reverse 'Griptape'
-[11/18/24 14:55:15] INFO     Subtask c3036471831144529b8d5300c6849203
+[11/22/24 06:11:47] INFO     ToolkitTask 35d860a6f0ac45289bed46822bd1bd2f
+                             Input: Show me the image at
+                             c:\Users\jason\Documents\GitHub\griptape-extensions\griptape-media-viewer-tool\examples\media/capybara_cloud.jp
+                             eg
+[11/22/24 06:11:49] INFO     Subtask c4224dddb05e400a88b50d71e165ac8d
                              Actions: [
                                {
-                                 "tag": "call_VE4tGBFL7iB7VDbkKaIFIkwY",
-                                 "name": "ReverseStringTool",
-                                 "path": "reverse_string",
+                                 "tag": "call_1one03sQjzA0o8rIVNj6RaL6",
+                                 "name": "MediaViewerTool",
+                                 "path": "show_file",
                                  "input": {
                                    "values": {
-                                     "input": "Griptape"
+                                     "file_path":
+                             "c:\\Users\\jason\\Documents\\GitHub\\griptape-extensions\\griptape-media-viewer-tool\\examples\\media/capybara
+                             _cloud.jpeg"
                                    }
                                  }
                                }
                              ]
-                    INFO     Subtask c3036471831144529b8d5300c6849203
-                             Response: epatpirG
-[11/18/24 14:55:16] INFO     ToolkitTask 6bb7fa5581d147b2a39e801631c98005
-                             Output: The reversed string of "Griptape" is "epatpirG".
+                    INFO     Subtask c4224dddb05e400a88b50d71e165ac8d
+                             Response: File displayed:
+                             c:\Users\jason\Documents\GitHub\griptape-extensions\griptape-media-viewer-tool\examples\media/capybara_cloud.jp
+                             eg
+[11/22/24 06:11:51] INFO     ToolkitTask 35d860a6f0ac45289bed46822bd1bd2f
+                             Output: The image at the specified path has been displayed.
 ```
 
-## Installing in Other Projects
+![Capybara Cloud](example_image.png)
 
-Extensions are designed to be shared. Extensions are made to easily install into existing Python projects.
 
-The easiest way to include your extension into an existing project is to install directly from the repository, like so:
+## Installing
+
+The easiest way to include this extension into an existing project is to install directly from the repository, like so:
+
 ```bash
-poetry add git+https://github.com/{your-org}/{your-extension-name}.git
+poetry add git+https://github.com/shhlife/griptape-media-viewer-tool.git
 ```
 
-To install a local copy of the extension for development, run:
+or you can install it with pip:
+
 ```bash
-poetry add -e /path/to/your/extension
+pip install git+https://github.com/shhlife/griptape-media-viewer-tool.git
 ```
 
-Any changes made to the extension will be automatically reflected in the project without needing to reinstall it.
+Then to use it, simply import it into your python project, instantiate it, and give it to an `Agent`, or use a `ToolTask`, or `ToolkitTask`:
 
-Advanced customers may seek to publish their extensions to PyPi. Those instructions are beyond the scope of this README.
+
+```python
+from griptape.media_viewer.tools.media_viewer_tool import MediaViewerTool
+from griptape.structures import Agent
+
+agent = Agent(tools=[MediaViewerTool()])
+```
