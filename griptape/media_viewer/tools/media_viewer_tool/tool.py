@@ -30,15 +30,16 @@ class MediaViewerTool(BaseTool):
     def show_file(self, params: dict) -> TextArtifact | ErrorArtifact:
         # get the file path from the parameters
         file_path = params["values"]["file_path"]
+        absolute_path = os.path.abspath(file_path)
         try:
             if sys.platform.startswith("darwin"):  # macOS
-                subprocess.call(("open", file_path))
+                subprocess.call(("open", absolute_path))
             elif os.name == "nt":  # Windows
-                os.startfile(file_path)
+                os.startfile(absolute_path)
             elif os.name == "posix":  # Linux/Unix
-                subprocess.call(("xdg-open", file_path))
+                subprocess.call(("xdg-open", absolute_path))
             else:
                 print("Unsupported OS.")
-            return TextArtifact(f"File displayed: {file_path}")
+            return TextArtifact(f"File displayed: {absolute_path}")
         except Exception as e:
             return TextArtifact(str(e))
