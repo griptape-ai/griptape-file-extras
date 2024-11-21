@@ -1,6 +1,6 @@
-# Griptape Media Viewer Tool
+# Griptape Open File Tool
 
-A Griptape tool for viewing media files. 
+A Griptape tool for opening files. 
 
 For example, you can tell an agent to "show you the image at /path/to/image" and it will display it using your default image viewer.
 
@@ -9,7 +9,7 @@ import os
 
 from dotenv import load_dotenv
 
-from griptape.media_viewer.tools.media_viewer_tool import MediaViewerTool
+from griptape.file.tools.open_file_tool import OpenFileTool
 from griptape.structures import Agent
 
 load_dotenv()
@@ -19,7 +19,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_dir)
 images_dir = os.path.join(parent_dir, "media")
 
-agent = Agent(tools=[MediaViewerTool()])
+agent = Agent(tools=[OpenFileTool()])
 
 agent.run(f"Show me the image at {images_dir}/capybara_cloud.jpeg")
 
@@ -63,21 +63,21 @@ This will output:
 The easiest way to include this extension into an existing project is to install directly from the repository, like so:
 
 ```bash
-poetry add git+https://github.com/shhlife/griptape-media-viewer-tool.git
+poetry add git+https://github.com/shhlife/griptape-open-file-tool.git
 ```
 
 or you can install it with pip:
 
 ```bash
-pip install git+https://github.com/shhlife/griptape-media-viewer-tool.git
+pip install git+https://github.com/shhlife/griptape-open-file-tool.git
 ```
 
 Then to use it, simply import it into your python project, instantiate it, and give it to an `Agent`, or use a `ToolTask`, or `ToolkitTask`:
 
 
 ```python
-from griptape.media_viewer.tools.media_viewer_tool import MediaViewerTool
+from griptape.file.tools.open_file_tool import OpenFileTool
 from griptape.structures import Agent
 
-agent = Agent(tools=[MediaViewerTool()])
+agent = Agent(tools=[OpenFileTool()])
 ```

@@ -13,21 +13,21 @@ from griptape.utils.decorators import activity
 
 
 @define
-class MediaViewerTool(BaseTool):
+class OpenFileTool(BaseTool):
     @activity(
         config={
-            "description": "Can be used to display an image",
+            "description": "Can be used to open any file type with an associated application on the system",
             "schema": Schema(
                 {
                     Literal(
                         "file_path",
-                        description="Name of the file to show. Example: images/chair.png",
+                        description="Name of the file to open. Example: images/chair.png",
                     ): str,
                 }
             ),
         }
     )
-    def show_file(self, params: dict) -> TextArtifact | ErrorArtifact:
+    def open_file(self, params: dict) -> TextArtifact | ErrorArtifact:
         # get the file path from the parameters
         file_path = params["values"]["file_path"]
         absolute_path = os.path.abspath(file_path)
