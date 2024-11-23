@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "griptape_media_tool"
+name = "griptape_open_file_tool"
 version = "0.1.0"
-description = "A Griptape extension to view media."
+description = "A Griptape extension to open files."
 authors = ["Jason Schleifer <jason@griptape.ai>"]
 readme = "README.md"
 packages = [
