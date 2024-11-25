@@ -9,7 +9,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.9"
 griptape = "^0.34.3"
 python-dotenv = "^1.0.1"
 
