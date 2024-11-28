@@ -1,7 +1,7 @@
 import os
 
 from griptape.artifacts import TextArtifact
-from griptape.file.tools.open_file_tool import OpenFileTool
+from griptape.file_extras.tools.open_file_tool import OpenFileTool
 
 
 class TestOpenFileTool:
