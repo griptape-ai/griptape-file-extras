@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "griptape_open_file_tool"
+name = "griptape_file_extras"
 version = "0.1.0"
-description = "A Griptape extension to open files."
+description = "A Griptape extension to work with files files."
 authors = ["Jason Schleifer <jason@griptape.ai>"]
 readme = "README.md"
 packages = [
