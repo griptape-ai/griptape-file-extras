@@ -1,6 +1,12 @@
-# Griptape Open File Tool
+# Griptape File Extras
 
-A Griptape tool for opening files. 
+A Griptape repository for working with files. 
+
+## Current Extras
+
+### Tools
+
+* `Open File Tool`
 
 For example, you can tell an agent to "show you the image at /path/to/image" and it will display it using your default image viewer.
 
@@ -9,7 +15,7 @@ import os
 
 from dotenv import load_dotenv
 
-from griptape.file.tools.open_file_tool import OpenFileTool
+from griptape.file-extras.tools.open_file_tool import OpenFileTool
 from griptape.structures import Agent
 
 load_dotenv()
@@ -36,7 +42,7 @@ This will output:
                              Actions: [
                                {
                                  "tag": "call_1one03sQjzA0o8rIVNj6RaL6",
-                                 "name": "MediaViewerTool",
+                                 "name": "OpenFileTool",
                                  "path": "show_file",
                                  "input": {
                                    "values": {
@@ -63,20 +69,20 @@ This will output:
 The easiest way to include this extension into an existing project is to install directly from the repository, like so:
 
 ```bash
-poetry add git+https://github.com/shhlife/griptape-open-file-tool.git
+poetry add git+https://github.com/griptape-ai/griptape-file-extras.git
 ```
 
 or you can install it with pip:
 
 ```bash
-pip install git+https://github.com/shhlife/griptape-open-file-tool.git
+pip install git+https://github.com/griptape-ai/griptape-file-extras.git
 ```
 
 Then to use it, simply import it into your python project, instantiate it, and give it to an `Agent`, or use a `ToolTask`, or `ToolkitTask`:
 
 
 ```python
-from griptape.file.tools.open_file_tool import OpenFileTool
+from griptape.file-extras.tools.open_file_tool import OpenFileTool
 from griptape.structures import Agent
 
 agent = Agent(tools=[OpenFileTool()])
