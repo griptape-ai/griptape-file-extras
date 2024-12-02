@@ -6,63 +6,7 @@ A Griptape repository for working with files.
 
 ### Tools
 
-* `Open File Tool`
-
-For example, you can tell an agent to "show you the image at /path/to/image" and it will display it using your default image viewer.
-
-```python
-import os
-
-from dotenv import load_dotenv
-
-from griptape.file-extras.tools.open_file_tool import OpenFileTool
-from griptape.structures import Agent
-
-load_dotenv()
-
-# Get the path of the image which is in the media directory.
-script_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(script_dir)
-images_dir = os.path.join(parent_dir, "media")
-
-agent = Agent(tools=[OpenFileTool()])
-
-agent.run(f"Show me the image at {images_dir}/capybara_cloud.jpeg")
-
-```
-
-This will output:
-
-```bash
-[11/22/24 06:11:47] INFO     ToolkitTask 35d860a6f0ac45289bed46822bd1bd2f
-                             Input: Show me the image at
-                             c:\Users\jason\Documents\GitHub\griptape-extensions\griptape-media-viewer-tool\examples\media/capybara_cloud.jp
-                             eg
-[11/22/24 06:11:49] INFO     Subtask c4224dddb05e400a88b50d71e165ac8d
-                             Actions: [
-                               {
-                                 "tag": "call_1one03sQjzA0o8rIVNj6RaL6",
-                                 "name": "OpenFileTool",
-                                 "path": "show_file",
-                                 "input": {
-                                   "values": {
-                                     "file_path":
-                             "c:\\Users\\jason\\Documents\\GitHub\\griptape-extensions\\griptape-media-viewer-tool\\examples\\media/capybara
-                             _cloud.jpeg"
-                                   }
-                                 }
-                               }
-                             ]
-                    INFO     Subtask c4224dddb05e400a88b50d71e165ac8d
-                             Response: File displayed:
-                             c:\Users\jason\Documents\GitHub\griptape-extensions\griptape-media-viewer-tool\examples\media/capybara_cloud.jp
-                             eg
-[11/22/24 06:11:51] INFO     ToolkitTask 35d860a6f0ac45289bed46822bd1bd2f
-                             Output: The image at the specified path has been displayed.
-```
-
-![Capybara Cloud](example_image.png)
-
+* [Open File Tool](docs/file_extras/tools/open_file_tool/README.md) - Will open any file using the user's default application for that file type.
 
 ## Installing
 

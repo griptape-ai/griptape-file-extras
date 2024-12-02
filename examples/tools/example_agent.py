@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 
-from griptape.file.tools.open_file_tool import OpenFileTool
+from griptape.file_extras.tools.open_file_tool import OpenFileTool
 from griptape.structures import Agent
 
 load_dotenv()
