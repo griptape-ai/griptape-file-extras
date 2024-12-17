@@ -1,3 +1,3 @@
-from .tool import OpenFileTool
+from .tool import MetadataTool
 
-__all__ = ["OpenFileTool"]
+__all__ = ["MetadataTool"]
