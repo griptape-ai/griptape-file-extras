@@ -9,36 +9,47 @@ from dotenv import load_dotenv
 
 from griptape.file_extras.tools.open_file_tool import OpenFileTool
 from griptape.structures import Agent
+from griptape.drivers import OpenAiChatPromptDriver
+
+import os
 
 load_dotenv()
 
+key = "OPENAI_API_KEY"
+if not (OPENAI_API_KEY := os.getenv(key)):
+    raise ValueError(f"{key} missing")
 
-agent = Agent(tools=[OpenFileTool()])
+TEST_IMAGE = "examples/file_extras/tools/open_file_tool/media/capybara_cloud.jpeg"
 
-agent.run("Can you show me the image at examples/media/capybara_cloud.jpeg?")
+agent = Agent(
+    prompt_driver=OpenAiChatPromptDriver(model="gpt-4o-mini", api_key=OPENAI_API_KEY),
+    tools=[OpenFileTool()],
+)
 
+agent.run( f"Can you show me the image at {TEST_IMAGE}?" )
 ```
 
 will output:
 
 ```bash
-[11/29/24 11:28:42] INFO     ToolkitTask 5833bde42a0d4112bc2dbdd0e92f39fa
-                             Input: Can you show me the image at examples/media/capybara_cloud.jpeg?
-[11/29/24 11:28:44] INFO     Subtask 061a71eb20454c429425c8a140d422e6
-                             Actions: [
-                               {
-                                 "tag": "call_6DnLmyroY5uS5q1Xij1alNDU",
-                                 "name": "OpenFileTool",
-                                 "path": "open_file",
-                                 "input": {
-                                   "values": {
-                                     "file_path": "examples/media/capybara_cloud.jpeg"
-                                   }
-                                 }
-                               }
-                             ]
-                    INFO     Subtask 061a71eb20454c429425c8a140d422e6
-                             Response: File displayed: C:\Users\jason\Documents\GitHub\griptape-extensions\griptape-file-extras\examples\media\capybara_cloud.jpeg
-[11/29/24 11:28:46] INFO     ToolkitTask 5833bde42a0d4112bc2dbdd0e92f39fa
-                             Output: The image at `examples/media/capybara_cloud.jpeg` has been opened for you.
+[12/16/24 16:38:12] INFO     ToolkitTask 99c71112b1d945be86dcb77705f00197
+                             Input: Can you show me the image at examples/file_extras/tools/open_file_tool/media/capybara_cloud.jpeg?   
+[12/16/24 16:38:13] INFO     Subtask 101d59730b9d4b95983dd86ad800b9d7                                                                   
+                             Actions: [                                                                                                 
+                               {                                                                                                        
+                                 "tag": "call_Q98RxI0Ca0iFBEnIYW2QjcUL",                                                                
+                                 "name": "OpenFileTool",                                                                                
+                                 "path": "open_file",                                                                                   
+                                 "input": {                                                                                             
+                                   "values": {                                                                                          
+                                     "file_path": "examples/file_extras/tools/open_file_tool/media/capybara_cloud.jpeg"                 
+                                   }                                                                                                    
+                                 }                                                                                                      
+                               }                                                                                                        
+                             ]                                                                                                          
+                    INFO     Subtask 101d59730b9d4b95983dd86ad800b9d7                                                                   
+                             Response: File displayed:                                                                                  
+                             *redacted*/examples/file_extras/tools/open_file_tool/media/capybara_cloud.jpeg                                                                       
+[12/16/24 16:38:18] INFO     ToolkitTask de3f84ec69c74e2eb034831a23a685cd                                                               
+                             Output: The image "capybara_cloud.jpeg" has been displayed successfully.                                   
 ```
