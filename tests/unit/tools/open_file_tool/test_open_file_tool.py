@@ -8,8 +8,7 @@ class TestOpenFileTool:
     def test_open_file_tool(self):
         filename = "capybara_cloud.jpeg"
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        parent_dir = os.path.dirname(script_dir)
-        images_dir = os.path.join(parent_dir, "media")
+        images_dir = os.path.join(script_dir, "media")
 
         tool = OpenFileTool()
         value = os.path.join(images_dir, filename)
