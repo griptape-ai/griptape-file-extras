@@ -1,8 +1,11 @@
-from griptape.file_extras.tools.metadata_tool.metadata import Metadata
-from griptape.utils.decorators import activity
-from griptape.artifacts import TextArtifact
-from griptape.tools import BaseTool
+import os
+
 from schema import Literal, Schema
+
+from griptape.artifacts import TextArtifact
+from griptape.file_extras.tools.metadata_tool.metadata import Metadata
+from griptape.tools import BaseTool
+from griptape.utils.decorators import activity
 
 
 class MetadataTool(BaseTool):
@@ -23,9 +26,12 @@ class MetadataTool(BaseTool):
             ),
         }
     )
-    def read_metadata(self, image_path: str) -> TextArtifact:
+    def read_metadata(self, params: dict) -> TextArtifact:
         """Extract metadata from a file using ExifTool."""
-        metadata_obj = Metadata(image_path)
+        # get the file path from the parameters
+        image_path = params["values"]["image_path"]
+        absolute_path = os.path.abspath(image_path)
+        metadata_obj = Metadata(file_path=absolute_path)
         return TextArtifact(metadata_obj.data)
 
     @activity(
@@ -45,8 +51,11 @@ class MetadataTool(BaseTool):
             ),
         }
     )
-    def write_metadata(self, image_path: str, kv_pairs: dict) -> TextArtifact:
+    def write_metadata(self, params: dict) -> TextArtifact:
         """Writes metadata to a file using ExifTool."""
-        metadata_obj = Metadata(image_path)
+        image_path = params["values"]["image_path"]
+        absolute_path = os.path.abspath(image_path)
+        kv_pairs = params["values"]["kv_pairs"]
+        metadata_obj = Metadata(file_path=absolute_path)
         metadata_obj.set(**kv_pairs)
         return TextArtifact(metadata_obj.data)
