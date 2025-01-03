@@ -87,3 +87,6 @@ will output:
                              - clouds        
                              - sun
 ```
+
+## Requirements
+This tool requires [ExifTool](https://exiftool.org/) to be installed on your system. Please follow the installation instructions for your particular operating system.
