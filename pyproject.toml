@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "griptape_file_extras"
-version = "0.2.0"
-description = "A Griptape extension to work with files files."
+version = "0.3.0"
+description = "A Griptape extension to work with files."
 authors = ["Jason Schleifer <jason@griptape.ai>"]
 readme = "README.md"
 packages = [
@@ -10,7 +10,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-griptape = "^1.0.0"
+griptape = "^1.1.0"
 python-dotenv = "^1.0.1"
 
 [tool.poetry.group.test]

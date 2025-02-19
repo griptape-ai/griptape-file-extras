@@ -6,6 +6,7 @@ A Griptape repository for working with files.
 
 ### Tools
 
+* [Metadata Tool](docs/file_extras/tools/metadata_tool/README.md) - Will read and write metadata from a file.
 * [Open File Tool](docs/file_extras/tools/open_file_tool/README.md) - Will open any file using the user's default application for that file type.
 
 ## Installing

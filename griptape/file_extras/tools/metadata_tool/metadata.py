@@ -1,5 +1,6 @@
-import subprocess
 import json
+import os
+import subprocess
 
 
 class Metadata:
@@ -8,10 +9,27 @@ class Metadata:
     """
 
     def __init__(self, file_path: str):
+        if not self._check_exiftool():
+            raise EnvironmentError("ExifTool is not installed or not found in PATH.")
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"File not found: {file_path}")
         self.file = file_path
         self.data = {}
         self.flag = {}
         self.get()
+
+    def _check_exiftool(self):
+        """Check if ExifTool is available on the system."""
+        try:
+            result = subprocess.run(
+                ["exiftool", "-ver"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+            )
+            return result.returncode == 0
+        except FileNotFoundError:
+            return False
 
     def get(self):
         """Extract metadata from a file using ExifTool and store it as a dictionary."""
